@@ -1,0 +1,24 @@
+{
+  "name": "threejs-raycast-selection",
+  "version": "1.0.0",
+  "description": "Simple addon for threejs which returns the element with the lowest userData.selectionIndex value in the intersections from a raycast",
+  "main": "src/Selection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonlo/threejs-raycast-selection.git"
+  },
+  "keywords": [
+    "threejs",
+    "raycast",
+    "selection"
+  ],
+  "author": "Jon Ldg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonlo/threejs-raycast-selection/issues"
+  },
+  "homepage": "https://github.com/jonlo/threejs-raycast-selection#readme"
+}
