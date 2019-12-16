@@ -9,12 +9,9 @@ import { Scene, Raycaster } from 'three';
 
 /**
  * Creates an instance of Selection.
- *
- * Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast
- * 
  * @public
- * @name Selection
- * @function Selection
+ * @name constructor
+ * @function constructor
  * @param {Camera}camera 
  **/
 export class Selection {
@@ -23,6 +20,15 @@ export class Selection {
 		this.raycaster = new Raycaster();
 	}
 
+/**
+ * Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast
+ * 
+ * @public
+ * @name selectElement
+ * @function selectElement
+ * @param {Vector2}mousePosNormalized
+ * @param {Array}allElements
+ **/
 	selectElement(mousePosNormalized, allElements) {
 		var intersects = this._raycastHits(this.camera, mousePosNormalized, allElements);
 		let selectedElement;
