@@ -40,7 +40,7 @@ export class Selection {
 			}
 			try {
 				let min = Math.min.apply(Math, intersects.map((intersect) => { return intersect.object.userData.selectionIndex; }));
-				var firstElementAtIndex = intersects.find(function (o) { return o.object.userData.selectionIndex.y == min; });
+				var firstElementAtIndex = intersects.find(function (o) { return o.object.userData.selectionIndex == min; });
 				if (firstElementAtIndex) {
 					selectedElement = firstElementAtIndex.object;
 				}

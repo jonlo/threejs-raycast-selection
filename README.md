@@ -1,5 +1,17 @@
 # threejs-raycast-selection
 
+Very simple package to get a threejs element from a raycast
+
+## Quick Start
+
+```javascript
+import { Selection } from 'threejs-raycast-selection';
+
+let selection = new Selection(camera);
+
+let selectedElement = selection.selectElement(mousePosNormalized, allElements);
+```
+
 ## Classes
 
 <dl>
@@ -10,9 +22,11 @@
 ## Functions
 
 <dl>
-<dt><a href="#Selection">Selection(camera)</a></dt>
+<dt><a href="#constructor">constructor(camera)</a></dt>
 <dd><p>Creates an instance of Selection.</p>
-<p>Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast</p>
+</dd>
+<dt><a href="#selectElement">selectElement(mousePosNormalized, allElements)</a></dt>
+<dd><p>Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast</p>
 </dd>
 </dl>
 
@@ -22,10 +36,10 @@
 **Kind**: global class
 **Version**: 1
 **Author**: jon
-<a name="Selection"></a>
+<a name="constructor"></a>
 
-## Selection(camera)
-Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast
+## constructor(camera)
+Creates an instance of Selection.
 
 **Kind**: global function
 **Access**: public
@@ -33,3 +47,16 @@ Returns the element with the lowest userData.selectionIndex value in the interse
 | Param | Type |
 | --- | --- |
 | camera | <code>Camera</code> |
+
+<a name="selectElement"></a>
+
+## selectElement(mousePosNormalized, allElements)
+Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast
+
+**Kind**: global function
+**Access**: public
+
+| Param | Type |
+| --- | --- |
+| mousePosNormalized | <code>Vector2</code> |
+| allElements | <code>Array</code> |
