@@ -10,8 +10,19 @@ import { Selection } from 'threejs-raycast-selection';
 let selection = new Selection(camera);
 
 let selectedElement = selection.selectElement(mousePosNormalized, allElements);
-```
 
+//Or
+
+selection.subscribe('elementSelected', (params) => { this.elementSelected(params); });
+
+```
+### params
+
+```javascript
+{
+	selectedElement: selectedElement
+}
+```
 ## Classes
 
 <dl>
@@ -44,8 +55,8 @@ Creates an instance of Selection.
 **Kind**: global function
 **Access**: public
 
-| Param | Type |
-| --- | --- |
+| Param  | Type                |
+| ------ | ------------------- |
 | camera | <code>Camera</code> |
 
 <a name="selectElement"></a>
@@ -56,7 +67,7 @@ Returns the element with the lowest userData.selectionIndex value in the interse
 **Kind**: global function
 **Access**: public
 
-| Param | Type |
-| --- | --- |
+| Param              | Type                 |
+| ------------------ | -------------------- |
 | mousePosNormalized | <code>Vector2</code> |
-| allElements | <code>Array</code> |
+| allElements        | <code>Array</code>   |

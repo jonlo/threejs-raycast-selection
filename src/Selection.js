@@ -6,6 +6,7 @@
  * @version 1
  **/
 import { Scene, Raycaster } from 'three';
+import { EventManager } from 'smaw-event-manager';
 
 /**
  * Creates an instance of Selection.
@@ -16,19 +17,20 @@ import { Scene, Raycaster } from 'three';
  **/
 export class Selection {
 	constructor(camera) {
+		EventManager.call(this);
 		this.camera = camera;
 		this.raycaster = new Raycaster();
 	}
 
-/**
- * Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast
- * 
- * @public
- * @name selectElement
- * @function selectElement
- * @param {Vector2}mousePosNormalized
- * @param {Array}allElements
- **/
+	/**
+	 * Returns the element with the lowest userData.selectionIndex value in the intersections from a raycast
+	 * 
+	 * @public
+	 * @name selectElement
+	 * @function selectElement
+	 * @param {Vector2}mousePosNormalized
+	 * @param {Array}allElements
+	 **/
 	selectElement(mousePosNormalized, allElements) {
 		var intersects = this._raycastHits(this.camera, mousePosNormalized, allElements);
 		let selectedElement;
@@ -47,7 +49,9 @@ export class Selection {
 			} catch (error) {
 				console.log(error);
 			}
-
+			this.trigger('elementSelected', {
+				selectedElement
+			});
 			return selectedElement;
 		}
 	}
