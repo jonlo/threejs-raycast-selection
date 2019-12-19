@@ -5,8 +5,9 @@
  * @author jon
  * @version 1
  **/
-import { Raycaster } from 'three';
+import { Raycaster, Mesh } from 'three';
 import { EventManager } from 'smaw-event-manager';
+import { SelectionData } from './SelectionData';
 
 /**
  * Creates an instance of Selection.
@@ -18,6 +19,7 @@ import { EventManager } from 'smaw-event-manager';
 export class Selection {
 	constructor(camera) {
 		EventManager.call(this);
+		this.selectableObjects = [];
 		this.camera = camera;
 		this.raycaster = new Raycaster();
 	}
@@ -31,8 +33,8 @@ export class Selection {
 	 * @param {Vector2}mousePosNormalized
 	 * @param {Array}allElements
 	 **/
-	selectElement(mousePosNormalized, allElements) {
-		var intersects = this._raycastHits(this.camera, mousePosNormalized, allElements);
+	selectElement(mousePosNormalized) {
+		var intersects = this._raycastHits(this.camera, mousePosNormalized, this.selectableObjects);
 		let selectedElement;
 		if (intersects.length > 0) {
 			selectedElement = intersects[0].object;
@@ -48,13 +50,29 @@ export class Selection {
 			this.trigger('elementSelected', {
 				selectedElement
 			});
-			return selectedElement;
+			return selectedElement.userData.selectionData.rootParent;
+		}
+	}
+
+	addSelectableObject(object) {
+		object.traverse((mesh) => {
+			if ((mesh instanceof Mesh)) {
+				mesh.userData.selectionData = new SelectionData(object, true);
+				this.selectableObjects.push(mesh);
+			}
+		});
+	}
+
+	removeSelectableObject(object) {
+		var index = this.selectableObjects.indexOf(object);
+		if (index > -1) {
+			this.selectableObjects.splice(index, 1);
 		}
 	}
 
 	_raycastHits(camera, mousePos, colliders) {
 		this.raycaster.setFromCamera(mousePos, camera);
-		let intersects = this.raycaster.intersectObjects(colliders.filter(element => element.userData.transformData.selectable));
+		let intersects = this.raycaster.intersectObjects(colliders.filter(element => element.userData.selectionData.selectable));
 		return intersects;
 	}
 
