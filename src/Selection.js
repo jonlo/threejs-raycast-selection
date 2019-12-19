@@ -31,7 +31,6 @@ export class Selection {
 	 * @name selectElement
 	 * @function selectElement
 	 * @param {Vector2}mousePosNormalized
-	 * @param {Array}allElements
 	 **/
 	selectElement(mousePosNormalized) {
 		var intersects = this._raycastHits(this.camera, mousePosNormalized, this.selectableObjects);
@@ -54,6 +53,14 @@ export class Selection {
 		}
 	}
 
+	/**
+	 * Adds a Object3d to the selection system, including all its children meshes
+	 * 
+	 * @public
+	 * @name addSelectableObject
+	 * @function addSelectableObject
+	 * @param {Object3d}object
+	 **/
 	addSelectableObject(object) {
 		object.traverse((mesh) => {
 			if ((mesh instanceof Mesh)) {
@@ -63,11 +70,22 @@ export class Selection {
 		});
 	}
 
+	/**
+	 * Removes all the meshes of an Object3d from the selection system 
+	 * 
+	 * @public
+	 * @name removeSelectableObject
+	 * @function removeSelectableObject
+	 * @param {Object3d}object
+	 **/
 	removeSelectableObject(object) {
-		var index = this.selectableObjects.indexOf(object);
-		if (index > -1) {
-			this.selectableObjects.splice(index, 1);
-		}
+		let objectMeshes = this.selectableObjects.filter(mesh => mesh.userData.selectionData.rootParent.uuid === object.uuid);
+		objectMeshes.forEach((mesh) => {
+			var index = this.selectableObjects.indexOf(mesh);
+			if (index > -1) {
+				this.selectableObjects.splice(index, 1);
+			}
+		});
 	}
 
 	_raycastHits(camera, mousePos, colliders) {

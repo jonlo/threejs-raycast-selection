@@ -1,6 +1,6 @@
 {
   "name": "threejs-raycast-selection",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Simple addon for threejs which returns the element with the lowest userData.selectionIndex value in the intersections from a raycast",
   "main": "src/Selection.js",
   "scripts": {
