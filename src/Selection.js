@@ -5,7 +5,7 @@
  * @author jon
  * @version 1
  **/
-import { Scene, Raycaster } from 'three';
+import { Raycaster } from 'three';
 import { EventManager } from 'smaw-event-manager';
 
 /**
@@ -35,11 +35,7 @@ export class Selection {
 		var intersects = this._raycastHits(this.camera, mousePosNormalized, allElements);
 		let selectedElement;
 		if (intersects.length > 0) {
-			if (!(intersects[0].object.parent instanceof Scene)) {
-				selectedElement = intersects[0].object.parent;
-			} else {
-				selectedElement = intersects[0].object;
-			}
+			selectedElement = intersects[0].object;
 			try {
 				let min = Math.min.apply(Math, intersects.map((intersect) => { return intersect.object.userData.selectionIndex; }));
 				var firstElementAtIndex = intersects.find(function (o) { return o.object.userData.selectionIndex == min; });
