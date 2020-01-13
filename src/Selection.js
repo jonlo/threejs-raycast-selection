@@ -63,7 +63,7 @@ export class Selection {
 	 **/
 	addSelectableObject(object) {
 		object.traverse((mesh) => {
-			if ((mesh instanceof Mesh)) {
+			if ((mesh.type === 'Mesh')) {
 				mesh.userData.selectionData = new SelectionData(object, true);
 				this.selectableObjects.push(mesh);
 			}
