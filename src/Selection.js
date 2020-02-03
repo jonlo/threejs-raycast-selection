@@ -17,6 +17,7 @@ import { SelectionData } from './SelectionData';
  * @param {Camera}camera 
  **/
 export class Selection {
+	
 	constructor(camera) {
 		EventManager.call(this);
 		this.selectableObjects = [];
@@ -54,7 +55,7 @@ export class Selection {
 	}
 
 	/**
-	 * Adds a Object3d to the selection system, including all its children meshes
+	 * Adds an Object3d to the selection system, including all its children meshes
 	 * 
 	 * @public
 	 * @name addSelectableObject
@@ -66,6 +67,25 @@ export class Selection {
 			if ((mesh.type === 'Mesh')) {
 				mesh.userData.selectionData = new SelectionData(object, true);
 				this.selectableObjects.push(mesh);
+			}
+		});
+	}
+
+	/**
+	 * removes an Object3d from the selection system, including all its children meshes
+	 * 
+	 * @public
+	 * @name removeSelectableObject
+	 * @function removeSelectableObject
+	 * @param {Object3d}object
+	 **/
+	removeSelectableObject(object) {
+		object.traverse((mesh) => {
+			if ((mesh.type === 'Mesh')) {
+				var index = this.selectableObjects.indexOf(mesh);
+				if (index > -1) {
+					this.selectableObjects.splice(index, 1);
+				}
 			}
 		});
 	}
