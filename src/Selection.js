@@ -97,6 +97,17 @@ export class Selection {
 		});
 	}
 
+	/**
+	 * Clears all the selectable objects list
+	 * 
+	 * @public
+	 * @name clearSelectableObjects
+	 * @function clearSelectableObjects
+	 **/
+	clearSelectableObjects(){
+		this.selectableObjects = [];
+	}
+
 	_raycastHits(camera, mousePos, colliders) {
 		this.raycaster.setFromCamera(mousePos, camera);
 		let intersects = this.raycaster.intersectObjects(colliders.filter(element => element.userData.selectionData.selectable));
